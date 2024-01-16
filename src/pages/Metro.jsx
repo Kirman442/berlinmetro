@@ -66,7 +66,7 @@ const Metro = () => {
             // Stations
             const All_Stations = new FeatureLayer({
                 portalItem: {
-                    id: '35d8eb00884448079d2784650b9c995c'
+                    id: '724d101833d34a6f8094a73daf200e8b' // new layer 724d101833d34a6f8094a73daf200e8b, old 35d8eb00884448079d2784650b9c995c
                 },
                 popupTemplate: stationPopup,
                 renderer: stationRenderer
