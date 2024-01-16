@@ -1,0 +1,1 @@
+import{a$ as s,bY as r,bZ as t,b_ as $,b$ as b,c0 as f,j as n,c1 as w}from"./index-NTpjkr2x.js";const m=new s(r),c=new s(t),o=new s($);new s(b);function u(a){return a&&(f(a)||n(a,c))?c:a&&(w(a)||n(a,o))?o:m}export{u as c};
