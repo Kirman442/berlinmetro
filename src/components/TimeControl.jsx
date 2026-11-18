@@ -26,7 +26,11 @@ export default function TimeControl({ year, setYear, playing, setPlaying }) {
   return (
     <div className="time">
       <button type="button" className="play" onClick={togglePlay} aria-label={playing ? 'Pause' : 'Abspielen'}>
-        {playing ? '❚❚' : '▶'}
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          {playing
+            ? <path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor" />
+            : <path d="M5 2.5v11l9-5.5z" fill="currentColor" />}
+        </svg>
       </button>
       <div className="slider">
         <input

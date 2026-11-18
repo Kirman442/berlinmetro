@@ -35,11 +35,11 @@ const stationLayer = {
 const labelLayer = {
   id: 'station-labels',
   type: 'symbol',
-  minzoom: 12.5,
+  minzoom: 10,
   layout: {
     'text-field': ['get', 'label'],
     'text-font': LABEL_FONT,
-    'text-size': 12,
+    'text-size': ['interpolate', ['linear'], ['zoom'], 10, 10, 14, 13],
     'text-offset': [0, 1.1],
     'text-anchor': 'top',
     'text-optional': true,

@@ -65,8 +65,10 @@ button { font: inherit; cursor: pointer; }
 }
 .time .play {
   flex: none; width: 36px; height: 36px; border-radius: 50%;
-  border: 0; background: var(--accent); color: #fff; font-size: 0.9rem;
+  border: 0; background: var(--accent); color: #fff; padding: 0;
+  display: flex; align-items: center; justify-content: center;
 }
+.time .play svg { display: block; }
 .time .slider { position: relative; flex: 1; }
 .time input[type='range'] { width: 100%; margin: 0; accent-color: var(--accent); }
 .time .ticks { position: absolute; left: 0; right: 0; top: 22px; height: 12px; font-size: 0.7rem; color: var(--muted); }
