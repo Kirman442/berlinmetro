@@ -16,6 +16,10 @@ d = lambda a, b: math.hypot((a[0] - b[0]) * 67800, (a[1] - b[1]) * 111200)
 
 for f in st['features']:
     p = f['properties']
+    # Schöneberger U-Bahn (U4) endete seit 1.12.1910 in einem eigenen Bahnhof Nollendorfplatz, 1926 durch den heutigen ersetzt
+    if p['id'] == 'U4-Nm':
+        p['opened'] = '1910-12-01'
+        p['relocations'] = [{'date': '1926-10-26', 'note': 'neuer gemeinsamer Bahnhof mit U1/U3, alter Schöneberger Bahnhof aufgegeben'}]
     if p['id'] == 'U7-RwK':
         p['line'], p['color'] = 'U2', COLORS['U2']
     pp = (src or {}).get(p['id'], {}).get('platform_points') or p.pop('platform_points', None) or []
@@ -50,6 +54,10 @@ i = min(range(len(path)), key=lambda i: d(path[i], nb))
 by['U3-Nb']['geometry']['coordinates'] = path[i]
 add('U3', 'Wittenbergplatz', 'Nürnberger Platz', '1913-10-12', '1959-07-01', path[:i + 1])
 add('U3', 'Nürnberger Platz', 'Hohenzollernplatz', '1913-10-12', '1959-07-01', path[i:])
+
+for f in se['features']:
+    p = f['properties']
+    if p['line'] == 'U4' and {p['from'], p['to']} == {'Viktoria-Luise-Platz', 'Nollendorfplatz'}: p['opened'] = '1910-12-01'
 
 # 4) точка станции на своей линии: если до трассы 40–300 м, ставим на ближайшую точку трассы;
 #    map_from = первое открытие участка своей линии у станции (Wittenbergplatz U1/U3 стоит с 1902, а линии U1/U3 там с 1913/1926)

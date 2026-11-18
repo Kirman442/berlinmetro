@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import MetroMap from './components/MetroMap';
 import TimeControl from './components/TimeControl';
 import Legend from './components/Legend';
+import LegalDialog from './components/LegalDialog';
 import { BASEMAPS, START_YEAR } from './lib/config';
 import { isoForYear, stateAt, sectionOpenAt } from './lib/time';
 
@@ -63,6 +64,7 @@ export default function App() {
         )}
         <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />
       </main>
+      <LegalDialog />
     </div>
   );
 }

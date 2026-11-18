@@ -93,3 +93,25 @@ button { font: inherit; cursor: pointer; }
   .legend { top: auto; bottom: 110px; right: 8px; width: 170px; max-height: 45%; }
   .time { bottom: 24px; }
 }
+
+/* Attribution + Rechtliches */
+.maplibregl-ctrl-attrib a { color: inherit; }
+dialog.legal {
+  width: min(720px, calc(100% - 24px)); max-height: calc(100% - 48px);
+  padding: 0; border: 0; border-radius: 10px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); color: var(--text);
+}
+dialog.legal::backdrop { background: rgba(0, 0, 0, 0.45); }
+.legal-inner { display: flex; flex-direction: column; max-height: calc(100vh - 48px); }
+.legal-inner header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 6px; border: 0; }
+.legal-inner h2 { margin: 0; font-size: 1.2rem; }
+.legal-close { border: 0; background: none; font-size: 1.6rem; line-height: 1; color: var(--muted); }
+.legal-inner nav { display: flex; gap: 14px; padding: 0 18px 10px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.legal-inner nav a { color: var(--muted); text-decoration: none; padding-bottom: 2px; }
+.legal-inner nav a[aria-current='page'] { color: var(--accent); border-bottom: 2px solid var(--accent); }
+.legal-body { overflow-y: auto; padding: 6px 18px 12px; font-size: 0.88rem; line-height: 1.5; }
+.legal-body h3 { margin: 16px 0 4px; font-size: 0.95rem; }
+.legal-body p { margin: 4px 0 8px; }
+.legal-body address { font-style: normal; }
+.legal-body a { color: var(--accent); }
+.legal-source-links { margin: 0 0 6px; padding-left: 18px; font-size: 0.82rem; }
+.legal-inner footer { padding: 8px 18px 12px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--muted); }

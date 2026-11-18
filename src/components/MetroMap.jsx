@@ -1,9 +1,10 @@
 import { useMemo, useState, useCallback } from 'react';
-import Map, { Source, Layer, Popup, NavigationControl, AttributionControl } from 'react-map-gl/maplibre';
+import Map, { Source, Layer, Popup, NavigationControl } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { INITIAL_VIEW, MAX_BOUNDS, LABEL_FONT } from '../lib/config';
 import { nameAt, stateAt, sectionOpenAt } from '../lib/time';
 import { StationPopup, SectionPopup } from './Popups';
+import MapAttribution from './MapAttribution';
 
 const sectionLayer = {
   id: 'sections',
@@ -105,7 +106,7 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
       style={{ position: 'absolute', inset: 0 }}
     >
       <NavigationControl position="top-left" showCompass={false} />
-      <AttributionControl position="bottom-right" compact customAttribution="Daten: Wikipedia (CC BY-SA 4.0), Wikidata, OpenStreetMap-Mitwirkende" />
+      <MapAttribution />
       <Source id="sections" type="geojson" data={sections}>
         <Layer {...sectionHitLayer} />
         <Layer {...sectionLayer} />
