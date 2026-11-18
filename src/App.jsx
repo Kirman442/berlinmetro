@@ -1,13 +1,88 @@
-// import { Routes, Route } from 'react-router-dom';
-import { Metro } from './pages/Metro';
-// import { Layout } from './components/Layout'
+import { useEffect, useMemo, useState } from 'react';
+import MetroMap from './components/MetroMap';
+import TimeControl from './components/TimeControl';
+import Legend from './components/Legend';
+import LegalDialog from './components/LegalDialog';
+import { START_YEAR } from './lib/config';
+import { BASEMAPS, basemapStyle, tilesAvailable, devFallbackStyle } from './lib/basemap';
+import { isoForYear, stateAt, sectionOpenAt, interruptionAt } from './lib/time';
 
-const App = () => {
+const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, { cache: 'no-cache' }).then((r) => {
+  if (!r.ok) throw new Error(`${name}: HTTP ${r.status}`);
+  return r.json();
+});
+
+export default function App() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [year, setYear] = useState(1902);
+  const [playing, setPlaying] = useState(false);
+  const [hiddenLines, setHiddenLines] = useState(() => new Set());
+  const [basemap, setBasemap] = useState(BASEMAPS[0]);
+  const [tiles, setTiles] = useState(null); // null — ещё проверяем, есть ли berlin.pmtiles
+
+  useEffect(() => { tilesAvailable().then(setTiles); }, []);
+
+  useEffect(() => {
+    Promise.all([load('stations'), load('sections')])
+      .then(([stations, sections]) => setData({ stations, sections }))
+      .catch((e) => setError(e.message));
+  }, []);
+
+  const iso = isoForYear(year);
+  const mapStyle = useMemo(() => {
+    if (tiles === null) return null;
+    if (!tiles && import.meta.env.DEV) return devFallbackStyle(basemap);
+    return basemapStyle(basemap);
+  }, [tiles, basemap]);
+
+  const stats = useMemo(() => {
+    const s = { stations: 0, km: 0, byLine: {}, ghost: 0, closedNoStop: 0 };
+    if (!data) return s;
+    const seen = new Set();
+    const ghost = new Set();
+    const noStop = new Set();
+    for (const f of data.stations.features) {
+      const p = f.properties;
+      const st = stateAt(p, iso);
+      if (st === 'interrupted') {
+        const it = interruptionAt(p, iso);
+        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(p.wikidata || p.name);
+      }
+      if (st !== 'open') continue;
+      s.byLine[p.line] = (s.byLine[p.line] || 0) + 1;
+      seen.add(p.wikidata || p.name); // пересадочный узел считаем один раз
+    }
+    s.stations = seen.size;
+    s.ghost = ghost.size;
+    s.closedNoStop = noStop.size;
+    for (const f of data.sections.features) {
+      if (sectionOpenAt(f.properties, iso)) s.km += f.properties.length_m / 1000;
+    }
+    return s;
+  }, [data, iso]);
+
+  const toggleLine = (id) => setHiddenLines((prev) => {
+    const next = new Set(prev);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    return next;
+  });
+
   return (
-    < main className="container" >
-      <Metro />
-    </main >
+    <div className="app">
+      <header>
+        <h1>Berliner U-Bahn {START_YEAR < year ? year : ''}</h1>
+        <p>Wie das Netz gewachsen ist – Bahnhöfe, Strecken und Namen im Lauf der Zeit</p>
+      </header>
+      <main>
+        {error && <div className="error">Daten konnten nicht geladen werden: {error}</div>}
+        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} />}
+        {data && (
+          <Legend stats={stats} hiddenLines={hiddenLines} toggleLine={toggleLine} basemap={basemap} setBasemap={setBasemap} />
+        )}
+        <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />
+      </main>
+      <LegalDialog />
+    </div>
   );
 }
-
-export default App
