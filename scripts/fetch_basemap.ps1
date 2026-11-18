@@ -9,7 +9,7 @@ $ProgressPreference = 'SilentlyContinue'   # otherwise Invoke-WebRequest is very
 $root  = Split-Path -Parent $PSScriptRoot
 $tools = Join-Path $root '.tools'
 $bbox  = '12.9,52.3,13.9,52.72'   # same as MAX_BOUNDS in src/lib/config.js
-$maxzoom = 15                      # Protomaps builds contain data up to z15
+$maxzoom = 14                      # z15 doubles the file (~97 MB); MapLibre overzooms z14 fine
 $UA = @{ 'User-Agent' = 'ubahn-basemap-script' }
 
 function Step($t) { Write-Host "`n== $t" -ForegroundColor Cyan }
