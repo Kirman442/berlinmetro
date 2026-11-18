@@ -2,7 +2,7 @@ import { useMemo, useState, useCallback } from 'react';
 import Map, { Source, Layer, Popup, NavigationControl } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { INITIAL_VIEW, MAX_BOUNDS, LABEL_FONT } from '../lib/config';
-import { nameAt, stateAt, sectionOpenAt } from '../lib/time';
+import { nameAt, stateAt, sectionOpenAt, interruptionAt } from '../lib/time';
 import { StationPopup, SectionPopup } from './Popups';
 import MapAttribution from './MapAttribution';
 
@@ -25,11 +25,12 @@ const stationLayer = {
   id: 'stations',
   type: 'circle',
   paint: {
-    'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 3, 14, 7],
+    'circle-radius': ['interpolate', ['linear'], ['zoom'],
+      10, ['case', ['==', ['get', 'state'], 'interrupted'], 4, 3],
+      14, ['case', ['==', ['get', 'state'], 'interrupted'], 8, 7]],
     'circle-color': ['case', ['==', ['get', 'state'], 'interrupted'], '#ffffff', ['get', 'color']],
     'circle-stroke-color': ['case', ['==', ['get', 'state'], 'interrupted'], ['get', 'color'], '#ffffff'],
-    'circle-stroke-width': ['case', ['==', ['get', 'state'], 'interrupted'], 2, 1.5],
-    'circle-opacity': ['case', ['==', ['get', 'state'], 'interrupted'], 0.85, 1],
+    'circle-stroke-width': ['case', ['==', ['get', 'state'], 'interrupted'], 2.5, 1.5],
   },
 };
 const labelLayer = {
@@ -37,7 +38,10 @@ const labelLayer = {
   type: 'symbol',
   minzoom: 10,
   layout: {
-    'text-field': ['get', 'label'],
+    // у станции без остановок — вторая строка серым: «ohne Halt» / «stillgelegt»
+    'text-field': ['case', ['all', ['==', ['get', 'state'], 'interrupted'], ['!=', ['get', 'label'], '']],
+      ['format', ['get', 'label'], {}, '\n', {}, ['get', 'note'], { 'font-scale': 0.85, 'text-color': '#8a5a00' }],
+      ['get', 'label']],
     'text-font': LABEL_FONT,
     'text-size': ['interpolate', ['linear'], ['zoom'], 10, 10, 14, 13],
     'text-offset': [0, 1.1],
@@ -72,7 +76,9 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
           const name = nameAt(f.properties, iso);
           const label = labelled.has(name) ? '' : name;
           labelled.add(name);
-          return { ...f, properties: { id: f.properties.id, color: f.properties.color, line: f.properties.line, state, name, label } };
+          const it = state === 'interrupted' ? interruptionAt(f.properties, iso) : null;
+          const note = it ? (it.type === 'geisterbahnhof' ? 'Geisterbahnhof' : 'ohne Halt') : '';
+          return { ...f, properties: { id: f.properties.id, color: f.properties.color, line: f.properties.line, state, name, label, note } };
         })
         .filter(Boolean),
     };

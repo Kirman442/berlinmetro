@@ -4,7 +4,7 @@ import TimeControl from './components/TimeControl';
 import Legend from './components/Legend';
 import LegalDialog from './components/LegalDialog';
 import { BASEMAPS, START_YEAR } from './lib/config';
-import { isoForYear, stateAt, sectionOpenAt } from './lib/time';
+import { isoForYear, stateAt, sectionOpenAt, interruptionAt } from './lib/time';
 
 const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, { cache: 'no-cache' }).then((r) => {
   if (!r.ok) throw new Error(`${name}: HTTP ${r.status}`);
@@ -28,16 +28,25 @@ export default function App() {
   const iso = isoForYear(year);
 
   const stats = useMemo(() => {
-    const s = { stations: 0, km: 0, byLine: {} };
+    const s = { stations: 0, km: 0, byLine: {}, ghost: 0, closedNoStop: 0 };
     if (!data) return s;
     const seen = new Set();
+    const ghost = new Set();
+    const noStop = new Set();
     for (const f of data.stations.features) {
       const p = f.properties;
-      if (stateAt(p, iso) !== 'open') continue;
+      const st = stateAt(p, iso);
+      if (st === 'interrupted') {
+        const it = interruptionAt(p, iso);
+        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(p.wikidata || p.name);
+      }
+      if (st !== 'open') continue;
       s.byLine[p.line] = (s.byLine[p.line] || 0) + 1;
       seen.add(p.wikidata || p.name); // пересадочный узел считаем один раз
     }
     s.stations = seen.size;
+    s.ghost = ghost.size;
+    s.closedNoStop = noStop.size;
     for (const f of data.sections.features) {
       if (sectionOpenAt(f.properties, iso)) s.km += f.properties.length_m / 1000;
     }

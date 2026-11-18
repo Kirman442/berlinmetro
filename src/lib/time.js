@@ -52,3 +52,12 @@ export const INTERRUPTION_LABEL = {
 
 // участок существует на дату iso (историческим участкам задана дата закрытия)
 export const sectionOpenAt = (p, iso) => normDate(p.opened) <= iso && !(p.closed && normDate(p.closed) <= iso);
+
+// активный перерыв на дату iso (тип: geisterbahnhof, stillgelegt …) или null
+export const interruptionAt = (station, iso) => {
+  for (const it of station.interruptions || []) {
+    const end = it.end && it.end.length === 4 ? `${it.end}-12-31` : normDate(it.end) || '9999';
+    if (normDate(it.start) <= iso && iso < end) return it;
+  }
+  return null;
+};
