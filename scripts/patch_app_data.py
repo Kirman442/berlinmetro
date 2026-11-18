@@ -80,6 +80,31 @@ for f in st['features']:
     if touch and min(touch) > p['opened']: p['map_from'] = min(touch)
     else: p.pop('map_from', None)
 
+# 5) точка ровно на линии: проекция на ближайший отрезок своей линии, концы участков — ровно в точках станций
+def proj(pt, a, b):
+    kx, ky = 67800, 111200
+    dx, dy = (b[0] - a[0]) * kx, (b[1] - a[1]) * ky
+    t = max(0, min(1, (((pt[0] - a[0]) * kx) * dx + ((pt[1] - a[1]) * ky) * dy) / (dx * dx + dy * dy or 1)))
+    return [round(a[0] + t * (b[0] - a[0]), 6), round(a[1] + t * (b[1] - a[1]), 6)]
+for f in st['features']:
+    p = f['properties']
+    if p.get('closed'): continue
+    c = f['geometry']['coordinates']
+    cands = [proj(c, a, b) for s_ in se['features'] if s_['properties']['line'] == p['line']
+             for a, b in zip(s_['geometry']['coordinates'], s_['geometry']['coordinates'][1:])]
+    if cands:
+        q = min(cands, key=lambda q: d(q, c))
+        if d(q, c) < 300: f['geometry']['coordinates'] = q
+for s_ in se['features']:
+    sp, cs = s_['properties'], s_['geometry']['coordinates']
+    for idx, nm in ((0, sp['from']), (-1, sp['to'])):
+        opts = [f['geometry']['coordinates'] for f in st['features']
+                if f['properties']['line'] == sp['line'] and nm in (f['properties']['name'], *[n['name'] for n in f['properties'].get('names') or []])]
+        if opts:
+            q = min(opts, key=lambda q: d(q, cs[idx]))
+            if d(q, cs[idx]) < 150: cs[idx] = list(q)
+    sp['length_m'] = round(sum(d(a, b) for a, b in zip(cs, cs[1:])))
+
 for name, fc in (('stations', st), ('sections', se)):
     json.dump(fc, open(D + name + '.geojson', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 print('ok', len(st['features']), 'stations', len(se['features']), 'sections')
