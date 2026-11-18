@@ -34,21 +34,28 @@ const stationLayer = {
     'circle-stroke-width': ['case', ['==', ['get', 'state'], 'interrupted'], 2.5, 1.5],
   },
 };
+// Подписи: одна на узел (центр всех точек станции с этим названием), при нехватке места MapLibre
+// пробует другие позиции вокруг точки, а при конфликте оставляет более важную (пересадки, затем остальные).
 const labelLayer = {
   id: 'station-labels',
   type: 'symbol',
   minzoom: 10,
   layout: {
-    // у станции без остановок — вторая строка серым: «ohne Halt» / «stillgelegt»
-    'text-field': ['case', ['all', ['==', ['get', 'state'], 'interrupted'], ['!=', ['get', 'label'], '']],
+    // у станции без остановок — вторая строка: «Geisterbahnhof» / «ohne Halt»
+    'text-field': ['case', ['!=', ['get', 'note'], ''],
       ['format', ['get', 'label'], {}, '\n', {}, ['get', 'note'], { 'font-scale': 0.85, 'text-color': '#8a5a00' }],
       ['get', 'label']],
     'text-font': LABEL_FONT,
-    'text-size': ['interpolate', ['linear'], ['zoom'], 10, 10, 14, 13],
-    'text-offset': [0, 1.1],
-    'text-anchor': 'top',
-    'text-optional': true,
+    'text-size': ['interpolate', ['linear'], ['zoom'], 10, ['case', ['>', ['get', 'rank'], 1], 11, 10], 14, 13],
+    'text-variable-anchor': ['top', 'bottom', 'right', 'left', 'top-right', 'top-left', 'bottom-right', 'bottom-left'],
+    'text-radial-offset': ['interpolate', ['linear'], ['zoom'], 10, 0.7, 14, 1.0],
+    'text-justify': 'auto',
+    'text-padding': 1,
+    'symbol-sort-key': ['-', 0, ['get', 'rank']],
+    // на мелком масштабе — только пересадочные узлы, остальные с зума 12
+    'text-allow-overlap': false,
   },
+  filter: ['any', ['>', ['get', 'rank'], 1], ['>=', ['zoom'], 12]],
   paint: { 'text-color': '#222', 'text-halo-color': '#fff', 'text-halo-width': 1.4 },
 };
 
@@ -66,26 +73,40 @@ export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
     ),
   }), [data, iso, hiddenLines]);
 
-  const stations = useMemo(() => {
-    // на одной пересадочной станции подпись нужна один раз
-    const labelled = new Set();
+  const stations = useMemo(() => ({
+    type: 'FeatureCollection',
+    features: data.stations.features
+      .filter((f) => !hiddenLines.has(f.properties.line))
+      .map((f) => {
+        const state = stateAt(f.properties, iso);
+        if (state === 'hidden') return null;
+        const name = nameAt(f.properties, iso);
+        const it = state === 'interrupted' ? interruptionAt(f.properties, iso) : null;
+        const note = it ? (it.type === 'geisterbahnhof' ? 'Geisterbahnhof' : 'ohne Halt') : '';
+        return { ...f, properties: { id: f.properties.id, color: f.properties.color, line: f.properties.line, state, name, note } };
+      })
+      .filter(Boolean),
+  }), [data, iso, hiddenLines]);
+
+  // одна подпись на узел: центр точек с одинаковым названием, rank = число линий
+  const labels = useMemo(() => {
+    const groups = new globalThis.Map();
+    for (const f of stations.features) {
+      const g = groups.get(f.properties.name) || { pts: [], lines: new Set(), note: null };
+      g.pts.push(f.geometry.coordinates); g.lines.add(f.properties.line);
+      // «ohne Halt» только если не останавливается ни одна линия узла
+      g.note = f.properties.note && g.note !== '' ? f.properties.note : '';
+      groups.set(f.properties.name, g);
+    }
     return {
       type: 'FeatureCollection',
-      features: data.stations.features
-        .filter((f) => !hiddenLines.has(f.properties.line))
-        .map((f) => {
-          const state = stateAt(f.properties, iso);
-          if (state === 'hidden') return null;
-          const name = nameAt(f.properties, iso);
-          const label = labelled.has(name) ? '' : name;
-          labelled.add(name);
-          const it = state === 'interrupted' ? interruptionAt(f.properties, iso) : null;
-          const note = it ? (it.type === 'geisterbahnhof' ? 'Geisterbahnhof' : 'ohne Halt') : '';
-          return { ...f, properties: { id: f.properties.id, color: f.properties.color, line: f.properties.line, state, name, label, note } };
-        })
-        .filter(Boolean),
+      features: [...groups].map(([name, g]) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [g.pts.reduce((a, p) => a + p[0], 0) / g.pts.length, g.pts.reduce((a, p) => a + p[1], 0) / g.pts.length] },
+        properties: { label: name, rank: g.lines.size, note: g.note || '' },
+      })),
     };
-  }, [data, iso, hiddenLines]);
+  }, [stations]);
 
   const byId = useMemo(() => Object.fromEntries(data.stations.features.map((f) => [f.properties.id, f])), [data]);
 
@@ -106,6 +127,7 @@ export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
       maxBounds={MAX_BOUNDS}
       mapStyle={mapStyle}
       cooperativeGestures
+      fadeDuration={0}
       attributionControl={false}
       interactiveLayerIds={['stations', 'sections-hit']}
       onClick={onClick}
@@ -122,6 +144,8 @@ export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
       </Source>
       <Source id="stations" type="geojson" data={stations}>
         <Layer {...stationLayer} />
+      </Source>
+      <Source id="station-labels" type="geojson" data={labels}>
         <Layer {...labelLayer} paint={dark ? labelPaintDark : labelLayer.paint} />
       </Source>
       {popup && (
