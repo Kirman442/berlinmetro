@@ -1,4 +1,5 @@
-import { LINES, BASEMAPS } from '../lib/config';
+import { LINES } from '../lib/config';
+import { BASEMAPS } from '../lib/basemap';
 
 export default function Legend({ stats, hiddenLines, toggleLine, basemap, setBasemap }) {
   return (

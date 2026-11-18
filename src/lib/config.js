@@ -10,12 +10,6 @@ export const LINES = [
   { id: 'U9', color: '#FF7300' },
 ];
 
-// Подложки OpenFreeMap: бесплатно, без ключа, общий набор шрифтов (нужен для подписей станций)
-export const BASEMAPS = [
-  { id: 'positron', label: 'Hell', url: 'https://tiles.openfreemap.org/styles/positron' },
-  { id: 'liberty', label: 'Farbig', url: 'https://tiles.openfreemap.org/styles/liberty' },
-  { id: 'dark', label: 'Dunkel', url: 'https://tiles.openfreemap.org/styles/dark' },
-];
 export const LABEL_FONT = ['Noto Sans Regular'];
 
 export const START_YEAR = 1900;

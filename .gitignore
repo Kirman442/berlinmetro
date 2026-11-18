@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# pmtiles.exe для scripts/fetch_basemap.ps1
+.tools/

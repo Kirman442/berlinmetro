@@ -52,7 +52,9 @@ const labelLayer = {
   paint: { 'text-color': '#222', 'text-halo-color': '#fff', 'text-halo-width': 1.4 },
 };
 
-export default function MetroMap({ data, iso, hiddenLines, basemap }) {
+const labelPaintDark = { 'text-color': '#eee', 'text-halo-color': '#1b1b1b', 'text-halo-width': 1.4 };
+
+export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
   const [popup, setPopup] = useState(null);
   const [cursor, setCursor] = useState('');
 
@@ -102,7 +104,7 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
     <Map
       initialViewState={INITIAL_VIEW}
       maxBounds={MAX_BOUNDS}
-      mapStyle={basemap.url}
+      mapStyle={mapStyle}
       cooperativeGestures
       attributionControl={false}
       interactiveLayerIds={['stations', 'sections-hit']}
@@ -120,7 +122,7 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
       </Source>
       <Source id="stations" type="geojson" data={stations}>
         <Layer {...stationLayer} />
-        <Layer {...labelLayer} />
+        <Layer {...labelLayer} paint={dark ? labelPaintDark : labelLayer.paint} />
       </Source>
       {popup && (
         <CrispPopup

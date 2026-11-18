@@ -3,7 +3,8 @@ import MetroMap from './components/MetroMap';
 import TimeControl from './components/TimeControl';
 import Legend from './components/Legend';
 import LegalDialog from './components/LegalDialog';
-import { BASEMAPS, START_YEAR } from './lib/config';
+import { START_YEAR } from './lib/config';
+import { BASEMAPS, basemapStyle, tilesAvailable, devFallbackStyle } from './lib/basemap';
 import { isoForYear, stateAt, sectionOpenAt, interruptionAt } from './lib/time';
 
 const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, { cache: 'no-cache' }).then((r) => {
@@ -18,6 +19,9 @@ export default function App() {
   const [playing, setPlaying] = useState(false);
   const [hiddenLines, setHiddenLines] = useState(() => new Set());
   const [basemap, setBasemap] = useState(BASEMAPS[0]);
+  const [tiles, setTiles] = useState(null); // null — ещё проверяем, есть ли berlin.pmtiles
+
+  useEffect(() => { tilesAvailable().then(setTiles); }, []);
 
   useEffect(() => {
     Promise.all([load('stations'), load('sections')])
@@ -26,6 +30,11 @@ export default function App() {
   }, []);
 
   const iso = isoForYear(year);
+  const mapStyle = useMemo(() => {
+    if (tiles === null) return null;
+    if (!tiles && import.meta.env.DEV) return devFallbackStyle(basemap);
+    return basemapStyle(basemap);
+  }, [tiles, basemap]);
 
   const stats = useMemo(() => {
     const s = { stations: 0, km: 0, byLine: {}, ghost: 0, closedNoStop: 0 };
@@ -67,7 +76,7 @@ export default function App() {
       </header>
       <main>
         {error && <div className="error">Daten konnten nicht geladen werden: {error}</div>}
-        {data && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} basemap={basemap} />}
+        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} />}
         {data && (
           <Legend stats={stats} hiddenLines={hiddenLines} toggleLine={toggleLine} basemap={basemap} setBasemap={setBasemap} />
         )}
