@@ -1,5 +1,6 @@
 import { useMemo, useState, useCallback } from 'react';
-import Map, { Source, Layer, Popup, NavigationControl } from 'react-map-gl/maplibre';
+import Map, { Source, Layer, NavigationControl } from 'react-map-gl/maplibre';
+import CrispPopup from './CrispPopup';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { INITIAL_VIEW, MAX_BOUNDS, LABEL_FONT } from '../lib/config';
 import { nameAt, stateAt, sectionOpenAt, interruptionAt } from '../lib/time';
@@ -122,7 +123,8 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
         <Layer {...labelLayer} />
       </Source>
       {popup && (
-        <Popup
+        <CrispPopup
+          key={`${popup.lngLat[0]},${popup.lngLat[1]}`}
           longitude={popup.lngLat[0]}
           latitude={popup.lngLat[1]}
           onClose={() => setPopup(null)}
@@ -132,7 +134,7 @@ export default function MetroMap({ data, iso, hiddenLines, basemap }) {
           {popup.kind === 'station'
             ? <StationPopup station={popup.station} iso={iso} />
             : <SectionPopup section={popup.section} />}
-        </Popup>
+        </CrispPopup>
       )}
     </Map>
   );

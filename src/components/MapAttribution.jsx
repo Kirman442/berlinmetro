@@ -32,7 +32,7 @@ function LegalLinks() {
 export default function MapAttribution() {
   return (
     <>
-      <AttributionControl position="bottom-right" compact customAttribution={ATTRIBUTION} />
+      <AttributionControl position="bottom-right" compact={false} customAttribution={ATTRIBUTION} />
       <LegalLinks />
     </>
   );
