@@ -6,7 +6,7 @@ import LegalDialog from './components/LegalDialog';
 import { BASEMAPS, START_YEAR } from './lib/config';
 import { isoForYear, stateAt, sectionOpenAt } from './lib/time';
 
-const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`).then((r) => {
+const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, { cache: 'no-cache' }).then((r) => {
   if (!r.ok) throw new Error(`${name}: HTTP ${r.status}`);
   return r.json();
 });
