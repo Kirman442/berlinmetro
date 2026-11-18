@@ -48,6 +48,9 @@ const labelLayer = {
     'text-offset': [0, 1.1],
     'text-anchor': 'top',
     'text-optional': true,
+    // Namen nicht ausblenden, wenn sie sich überlappen: sonst flackern sie beim Abspielen/Zoomen
+    'text-allow-overlap': true,
+    'text-ignore-placement': true,
   },
   paint: { 'text-color': '#222', 'text-halo-color': '#fff', 'text-halo-width': 1.4 },
 };
