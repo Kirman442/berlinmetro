@@ -26,6 +26,13 @@ for f in st['features']:
     p.pop('platform_points', None)
     if pp and not p.get('closed') and d(pp[0], pp[-1]) < 300:
         f['geometry']['coordinates'] = [round(sum(q[0] for q in pp) / len(pp), 6), round(sum(q[1] for q in pp) / len(pp), 6)]
+# Wiedereröffnung der Geisterbahnhöfe: genaue Tage statt nur Jahr
+REOPEN = {'U8-Jb': '1989-11-11', 'U8-Ro': '1989-12-22', 'U8-Ap': '1990-07-01', 'U8-W': '1990-07-01',
+          'U6-NA': '1990-07-01', 'U6-Ob': '1990-07-01', 'U6-SK': '1990-07-01'}
+for f in st['features']:
+    p = f['properties']
+    for it in p.get('interruptions') or []:
+        if p['id'] in REOPEN and it['type'] == 'geisterbahnhof': it['end'] = REOPEN[p['id']]
 by = {f['properties']['id']: f for f in st['features']}
 
 def length(c): return round(sum(d(a, b) for a, b in zip(c, c[1:])))
