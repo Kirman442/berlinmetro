@@ -1,0 +1,185 @@
+{
+ "from": "depth/depths_seed_v2.csv",
+ "entries": {
+  "U1|Osthafen": {
+   "depth_m": 7.5,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Osthafen (Treppenaufgang, Hochbahn)"
+  },
+  "U1|Schlesisches Tor": {
+   "depth_m": 6,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Schlesisches Tor"
+  },
+  "U2|Rosa-Luxemburg-Platz": {
+   "depth_m": -4,
+   "reference": "Straßendecke",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Rosa-Luxemburg-Platz"
+  },
+  "U2|Senefelderplatz": {
+   "depth_m": -5,
+   "reference": "Straßendecke",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Senefelderplatz"
+  },
+  "U2|Spittelmarkt": {
+   "depth_m": -3.7,
+   "reference": "Straßendecke",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Spittelmarkt"
+  },
+  "U3|Krumme Lanke": {
+   "depth_m": -3.6,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Krumme Lanke (Einschnitt)"
+  },
+  "U3|Schlesisches Tor": {
+   "depth_m": 6,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Schlesisches Tor"
+  },
+  "U4|Viktoria-Luise-Platz": {
+   "depth_m": -4.2,
+   "reference": "Straßendecke",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Viktoria-Luise-Platz"
+  },
+  "U5|Alexanderplatz": {
+   "depth_m": -11.25,
+   "reference": "Oberfläche",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Alexanderplatz"
+  },
+  "U5|Brandenburger Tor": {
+   "depth_m": -17,
+   "reference": "Straßenebene",
+   "precision": "ca.",
+   "source": "dewiki U-Bahn-Linie U5"
+  },
+  "U5|Museumsinsel": {
+   "depth_m": -16,
+   "reference": "Straßenoberkante",
+   "precision": "rund",
+   "source": "dewiki U-Bahnhof Museumsinsel"
+  },
+  "U5|Rotes Rathaus": {
+   "depth_m": -7,
+   "reference": "Straßenoberkante",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Rotes Rathaus (untere Ebene −12 m)"
+  },
+  "U5|Unter den Linden": {
+   "depth_m": -14,
+   "reference": "Straßenoberkante",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Unter den Linden"
+  },
+  "U6|Borsigwerke": {
+   "depth_m": -6.8,
+   "reference": "Straßenoberfläche",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Borsigwerke"
+  },
+  "U6|Friedrichstraße": {
+   "depth_m": -6.65,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Friedrichstraße"
+  },
+  "U6|Holzhauser Straße": {
+   "depth_m": 7.1,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Holzhauser Straße (Hochbahn)"
+  },
+  "U6|Kurt-Schumacher-Platz": {
+   "depth_m": -7.66,
+   "reference": "Gelände",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Kurt-Schumacher-Platz"
+  },
+  "U6|Naturkundemuseum": {
+   "depth_m": -4.6,
+   "reference": "Straße",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Naturkundemuseum"
+  },
+  "U6|Oranienburger Tor": {
+   "depth_m": -4.9,
+   "reference": "Straße",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Oranienburger Tor"
+  },
+  "U6|Otisstraße": {
+   "depth_m": 7.35,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Otisstraße (Hochbahn)"
+  },
+  "U6|Schwartzkopffstraße": {
+   "depth_m": -4.3,
+   "reference": "Straße",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Schwartzkopffstraße"
+  },
+  "U6|Seestraße": {
+   "depth_m": -4.4,
+   "reference": "Gelände",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Seestraße (ursprünglicher Bau)"
+  },
+  "U6|Unter den Linden": {
+   "depth_m": -5,
+   "reference": "Straßenoberkante",
+   "precision": "rund",
+   "source": "dewiki U-Bahnhof Unter den Linden"
+  },
+  "U7|Altstadt Spandau": {
+   "depth_m": -14,
+   "reference": "Gelände",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Altstadt Spandau"
+  },
+  "U7|Grenzallee": {
+   "depth_m": -6.3,
+   "reference": "Straßenoberfläche",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Grenzallee"
+  },
+  "U7|Hermannplatz": {
+   "depth_m": -9,
+   "reference": "Gelände",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Hermannplatz"
+  },
+  "U8|Bernauer Straße": {
+   "depth_m": -4.5,
+   "reference": "Straße",
+   "precision": "4–5 m",
+   "source": "dewiki U-Bahnhof Bernauer Straße"
+  },
+  "U8|Gesundbrunnen": {
+   "depth_m": -14.75,
+   "reference": "Straßenoberfläche",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Gesundbrunnen"
+  },
+  "U8|Rosenthaler Platz": {
+   "depth_m": -7,
+   "reference": "Straßenniveau",
+   "precision": "rund",
+   "source": "dewiki U-Bahnhof Rosenthaler Platz"
+  },
+  "U8|Schönleinstraße": {
+   "depth_m": -6.7,
+   "reference": "Straßenniveau",
+   "precision": "Angabe",
+   "source": "dewiki U-Bahnhof Schönleinstraße"
+  }
+ }
+}

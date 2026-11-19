@@ -1,0 +1,86 @@
+{
+ "y2026": {
+  "stat": [
+   "175",
+   "157",
+   "17"
+  ],
+  "lines": [
+   "U1:13 Bhf.|13 Bahnhöfe, 14 Bahnsteig-/Ebenen-Einträge",
+   "U2:29 Bhf.|29 Bahnhöfe",
+   "U3:24 Bhf.|24 Bahnhöfe, 25 Bahnsteig-/Ebenen-Einträge",
+   "U4:5 Bhf.|5 Bahnhöfe",
+   "U5:26 Bhf.|26 Bahnhöfe",
+   "U6:29 Bhf.|29 Bahnhöfe",
+   "U7:40 Bhf.|40 Bahnhöfe, 41 Bahnsteig-/Ebenen-Einträge",
+   "U8:24 Bhf.|24 Bahnhöfe",
+   "U9:18 Bhf.|18 Bahnhöfe, 19 Bahnsteig-/Ebenen-Einträge"
+  ]
+ },
+ "deepest": [
+  "U5 Brandenburger Tor −17 m",
+  "U5 Museumsinsel −16 m",
+  "U8 Gesundbrunnen −14,8 m",
+  "U5 Unter den Linden −14 m",
+  "U7 Altstadt Spandau −14 m",
+  "U7 Berliner Straße ≈ −12 m",
+  "U8 Alexanderplatz ≈ −12 m",
+  "U8 Osloer Straße ≈ −12 m",
+  "U9 Zoologischer Garten ≈ −12 m",
+  "U5 Alexanderplatz −11,3 m"
+ ],
+ "y1902": {
+  "stat": [
+   "14",
+   "16",
+   "8"
+  ],
+  "lines": [
+   "U1:8 Bhf.|8 Bahnhöfe",
+   "U2:6 Bhf.|6 Bahnhöfe",
+   "U3:7 Bhf.|7 Bahnhöfe",
+   "U4:–|0 Bahnhöfe",
+   "U5:–|0 Bahnhöfe",
+   "U6:–|0 Bahnhöfe",
+   "U7:–|0 Bahnhöfe",
+   "U8:–|0 Bahnhöfe",
+   "U9:–|0 Bahnhöfe"
+  ]
+ },
+ "y1900": {
+  "stat": [
+   "0",
+   "0",
+   "–"
+  ],
+  "lines": [
+   "U1:–|0 Bahnhöfe",
+   "U2:–|0 Bahnhöfe",
+   "U3:–|0 Bahnhöfe",
+   "U4:–|0 Bahnhöfe",
+   "U5:–|0 Bahnhöfe",
+   "U6:–|0 Bahnhöfe",
+   "U7:–|0 Bahnhöfe",
+   "U8:–|0 Bahnhöfe",
+   "U9:–|0 Bahnhöfe"
+  ]
+ },
+ "u5open": "× | U5 | Linie U5 | Bahnhöfe | 26 | Länge | 22,2 km (Hauptstrecke) | Tiefe | bis 17,0 m, Ø 7,3 m | Tiefster Bf. | Brandenburger Tor | Tiefster Punkt | Museumsinsel, ≈ 15 m ü. NHN | Gelände | 31–58 m ü. NHN | 10 | 20 | 30",
+ "u5hidden": "× | U5 | Linie U5 |  | Linie U5 ist ausgeblendet. |  | Linie U5 einblenden",
+ "u5reshown": "× | U5 | Linie U5 | Bahnhöfe | 26 | Länge | 22,2 km (Hauptstrecke) | Tiefe | bis",
+ "bt2026": "× | U5 | Brandenburger Tor | −17 m (unter Straßenniveau) | Gelände | 34,1 m ü. N",
+ "bt2008": "× | U5 | Brandenburger Tor |  | Im Jahr 2008 noch nicht eröffnet (Eröffnung 08.08.2009). |  | Zu 2009 springen | Auswahl aufheben",
+ "bt2026b": "× | U5 | Brandenburger Tor | −17 m (unter Straßenniveau) | Gelände | 34,1 m ü. N",
+ "btU5hidden": "× | U5 | Brandenburger Tor |  | Linie U5 ist ausgeblendet. |  | Einblenden | Auswahl aufheben",
+ "btU5restored": "× | U5 | Brandenburger Tor | −17 m (unter Straßenniveau) | G",
+ "allOff": "Keine Linien eingeblendet. |  | Alle anzeigen",
+ "afterRestore": {
+  "empty": false,
+  "stats": [
+   "175",
+   "157",
+   "17"
+  ]
+ },
+ "errors": []
+}

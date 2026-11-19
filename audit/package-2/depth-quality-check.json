@@ -1,0 +1,32 @@
+{
+ "all_records": 216,
+ "by_kind_all": {
+  "abgeleitet/ca": 2,
+  "lage/schaetzung": 53,
+  "osm/schaetzung": 131,
+  "quelle/punkt": 25,
+  "quelle/ca": 4,
+  "quelle/spanne": 1
+ },
+ "open_2026": 212,
+ "by_kind_open_2026": {
+  "abgeleitet/ca": 2,
+  "lage/schaetzung": 53,
+  "osm/schaetzung": 128,
+  "quelle/punkt": 24,
+  "quelle/ca": 4,
+  "quelle/spanne": 1
+ },
+ "seed_value_mismatch": [],
+ "non_point_sources": [
+  "U5-BRT Brandenburger Tor: ca.",
+  "U5-MUI Museumsinsel: rund",
+  "U6-UDO Unter den Linden: rund",
+  "U8-B Bernauer Straße: 4–5 m",
+  "U8-Ro Rosenthaler Platz: rund"
+ ],
+ "derived": [
+  "U1-Go",
+  "U3-Go"
+ ]
+}

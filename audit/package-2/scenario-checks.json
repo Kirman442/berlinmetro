@@ -1,0 +1,173 @@
+{
+ "stations": {
+  "Brandenburger Tor (ca.)": {
+   "id": "U5-BRT",
+   "card": {
+    "big": "≈ −17 m unter Geländeniveau",
+    "status": "Höhenlage: Quellenangabe · ca.",
+    "facts": [
+     "Gelände | 34,1 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 17,1 m ü. NHN (Modell) | Lage | Tunnel | Eröffnet | 08.08.2009 | Ortsteil | Mitte",
+     "Art | Quellenangabe | Genauigkeit | ca. | Bezug | Straßenebene (laut Quelle) | Quelle | dewiki U-Bahn-Linie U5"
+    ]
+   },
+   "label": [
+    "Brandenburger Tor≈ −17 m"
+   ]
+  },
+  "Bernauer Straße (Spanne)": {
+   "id": "U8-B",
+   "card": {
+    "big": "−4…−5 m unter Geländeniveau",
+    "status": "Höhenlage: Quellenangabe · Spanne 4–5 m",
+    "facts": [
+     "Gelände | 46,4 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 41,9 m ü. NHN (Modell) | Lage | Tunnel | Eröffnet | 18.04.1930 | Ortsteil | Mitte",
+     "Art | Quellenangabe | Genauigkeit | Spanne 4–5 m | Bezug | Straße (laut Quelle) | Quelle | dewiki U-Bahnhof Bernauer Straße | Im Modell | −4,5 m (Mitte der Spanne)"
+    ]
+   },
+   "label": [
+    "Bernauer Straße−4…−5 m"
+   ]
+  },
+  "Gleisdreieck U1 (abgeleitet)": {
+   "id": "U1-Go",
+   "card": {
+    "big": "≈ +12 m über Geländeniveau",
+    "status": "Höhenlage: abgeleitet",
+    "facts": [
+     "Gelände | 35,8 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 47,8 m ü. NHN (Modell) | Lage | Hochbahn (Viadukt) | Eröffnet | 03.11.1912 | Ortsteil | Kreuzberg",
+     "Art | abgeleitet | Quelle | Wikipedia"
+    ]
+   },
+   "label": [
+    "Gleisdreieck≈ +12 m",
+    "Gleisdreieck≈ +6,5 m",
+    "Gleisdreieck≈ +12 m"
+   ]
+  },
+  "Berliner Straße U7 (OSM)": {
+   "id": "U7-Beo",
+   "card": {
+    "big": "≈ −12 m unter Geländeniveau",
+    "status": "Höhenlage: Modellschätzung (OSM-Ebene)",
+    "facts": [
+     "Gelände | 39,6 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 27,6 m ü. NHN (Modell) | Lage | Tunnel | Eröffnet | 29.01.1971 | Ortsteil | Wilmersdorf",
+     "Art | Modellschätzung (OSM-Ebene)"
+    ]
+   },
+   "label": [
+    "Berliner Straße≈ −12 m",
+    "Berliner Straße≈ −8 m"
+   ]
+  },
+  "Museumsinsel (rund)": {
+   "id": "U5-MUI",
+   "card": {
+    "big": "≈ −16 m unter Geländeniveau",
+    "status": "Höhenlage: Quellenangabe · rund",
+    "facts": [
+     "Gelände | 30,8 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 14,8 m ü. NHN (Modell) | Lage | Tunnel | Eröffnet | 09.07.2021 | Ortsteil | Mitte",
+     "Art | Quellenangabe | Genauigkeit | rund | Bezug | Straßenoberkante (laut Quelle) | Quelle | dewiki U-Bahnhof Museumsinsel"
+    ]
+   },
+   "label": [
+    "Museumsinsel≈ −16 m"
+   ]
+  },
+  "Alexanderplatz U5 (Angabe)": {
+   "id": "U5-Al",
+   "card": {
+    "big": "−11,25 m unter Geländeniveau",
+    "status": "Höhenlage: Quellenangabe",
+    "facts": [
+     "Gelände | 37,1 m ü. NHN (DGM1, Modell) | Höhenlage | ≈ 25,8 m ü. NHN (Modell) | Lage | Tunnel | Eröffnet | 21.12.1930 | Ortsteil | Mitte",
+     "Art | Quellenangabe | Genauigkeit | Zahlenangabe ohne Zusatz | Bezug | Oberfläche (laut Quelle) | Quelle | dewiki U-Bahnhof Alexanderplatz"
+    ]
+   },
+   "label": [
+    "Alexanderplatz−11,25 m",
+    "Alexanderplatz≈ −12 m",
+    "Alexanderplatz≈ −6 m"
+   ]
+  }
+ },
+ "panel": {
+  "stats": [
+   "175 Bahnhöfe | Stationsknoten; mehrere Bahnsteig-/Ebenen-Einträge eines Bahnhofs zählen einmal",
+   "157 km Linienlänge | Summe der Streckenabschnitte je Linie; gemeinsam befahrene Abschnitte (U1/U3) zählen für jede Linie",
+   "≈17 m max. Stationstiefe | Brandenburger Tor (U5): ≈ −17 m, Quellenangabe · ca."
+  ],
+  "scope": "Ganzes Netz zum Jahresende 2026, unabhängig von ausgeblendeten Linien. Linienlänge: Summe je Linie, gemeinsame Abschnitte U1/U3 doppelt.",
+  "mode": "Stadtplan / Fläche / aus / unter Gelände / ü. NHN / nach Linie / nach Tiefe / keine / ab 10 m / alle / 3D / Oben / Seite / Unten",
+  "deepest": [
+   "U5 Brandenburger Tor ≈ −17 m",
+   "U5 Museumsinsel ≈ −16 m",
+   "U8 Gesundbrunnen −14,75 m",
+   "U5 Unter den Linden −14 m",
+   "U7 Altstadt Spandau −14 m",
+   "U7 Berliner Straße ≈ −12 m",
+   "U8 Alexanderplatz ≈ −12 m",
+   "U8 Osloer Straße ≈ −12 m",
+   "U9 Zoologischer Garten ≈ −12 m",
+   "U5 Alexanderplatz −11,25 m"
+  ]
+ },
+ "profile_U5": {
+  "facts": "Bahnhöfe | 26 | Länge | 22,2 km (Hauptstrecke im Profil) | Tiefste Station | Brandenburger Tor, ≈ −17 m | Ø Tiefe | ≈ 7,3 m (22 Einträge unter Geländeniveau) | Niedrigste Station | Museumsinsel, ≈ 15 m ü. NHN (absolut) | Gelände (Stationen) | 31–58 m ü. NHN",
+  "axis": "Höhe über NHN (m)",
+  "legend": [
+   "Gelände (DGM1, geglättet) · Modelltrasse",
+   "Quellenangabe (3) · ca./Spanne/abgeleitet (2) · Modellschätzung (21)"
+  ],
+  "dots": [
+   "Alexanderplatz: −11,25 m (Quellenangabe), ≈ 25,8 m ü. NHN",
+   "Museumsinsel: ≈ −16 m (Quellenangabe · rund), ≈ 14,8 m ü. NHN",
+   "Brandenburger Tor: ≈ −17 m (Quellenangabe · ca.), ≈ 17,1 m ü. NHN"
+  ]
+ },
+ "profile_U7": {
+  "facts": "Bahnhöfe | 40 (41 Bahnsteig-/Ebenen-Einträge) | Länge | 32,0 km (Hauptstrecke im Profil) | Tiefste Station | Altstadt Spandau, −14 m | Ø Tiefe | ≈ 7,3 m (41 Einträge unter Geländeniveau) | Niedrigste Station | Altstadt Spandau, ≈ 21 m ü. NHN (absolut) | Gelände (Stationen) | 32–44 m ü. NHN",
+  "axis": "Höhe über NHN (m)",
+  "legend": [
+   "Gelände (DGM1, geglättet) · Modelltrasse",
+   "Quellenangabe (3) · ca./Spanne/abgeleitet (0) · Modellschätzung (38)"
+  ],
+  "dots": [
+   "Berliner Straße: ≈ −12 m (Modellschätzung (OSM-Ebene)), ≈ 27,6 m ü. NHN"
+  ]
+ },
+ "profile_U8": {
+  "facts": "Bahnhöfe | 24 | Länge | 18,3 km (Hauptstrecke im Profil) | Tiefste Station | Gesundbrunnen, −14,75 m | Ø Tiefe | ≈ 7,9 m (24 Einträge unter Geländeniveau) | Niedrigste Station | Alexanderplatz, ≈ 25 m ü. NHN (absolut) | Gelände (Stationen) | 35–53 m ü. NHN",
+  "axis": "Höhe über NHN (m)",
+  "legend": [
+   "Gelände (DGM1, geglättet) · Modelltrasse",
+   "Quellenangabe (2) · ca./Spanne/abgeleitet (2) · Modellschätzung (20)"
+  ],
+  "dots": [
+   "Bernauer Straße: −4…−5 m (Quellenangabe · Spanne 4–5 m), ≈ 41,9 m ü. NHN"
+  ]
+ },
+ "profile_U1": {
+  "facts": "Bahnhöfe | 13 (14 Bahnsteig-/Ebenen-Einträge) | Länge | 9,0 km (Hauptstrecke im Profil) | Tiefste Station | Wittenbergplatz, ≈ −8 m | Ø Tiefe | ≈ 5,5 m (6 Einträge unter Geländeniveau) | Niedrigste Station | Wittenbergplatz, ≈ 27 m ü. NHN (absolut) | Gelände (Stationen) | 34–40 m ü. NHN",
+  "axis": "Höhe über NHN (m)",
+  "legend": [
+   "Gelände (DGM1, geglättet) · Modelltrasse",
+   "Quellenangabe (1) · ca./Spanne/abgeleitet (1) · Modellschätzung (12)"
+  ],
+  "dots": [
+   "Gleisdreieck: ≈ +12 m (abgeleitet), ≈ 47,8 m ü. NHN"
+  ]
+ },
+ "abs": {
+  "hints": [
+   "Ganzes Netz zum Jahresende 2026, unabhängig von ausgeblendeten Linien. Linienlänge: Summe je Linie, gemeinsame Abschnitte U1/U3 doppelt.",
+   "Höhenunterschiede 50-fach vergrößert; Meterangaben bleiben unverändert. Kugeln und Röhren sind Symbole, nicht maßstäblich.",
+   "Von oben: Stadtplan · von unten: Erdreich (braun)",
+   "Absolute Höhen über NHN (mit Geländehöhe aus DGM1). Die Kartenfläche bleibt eine ebene, schematische Fläche.",
+   "Schematisch: Senkrechten verbinden Bahnhof und Geländeniveau (keine realen Zugänge). Umstiege verbinden Bahnhöfe verschiedener Linien näher als 300 m (keine vermessenen Gänge). Braune Unterseite: Symbol für Erdreich.",
+   "Nur Tunnelbahnhöfe · Tiefe unter Geländeniveau wie auf der Karte · ≈ ungefähr oder Modellschätzung"
+  ],
+  "ramp": "Tiefe unter Geländeniveau | 0 | −5 | −10 | −15 | −22 m |  | auf/über Geländeniveau |  | Feste Skala 0 bis −22 m, tiefer = dunkelste Farbe (nicht der Höchstwert des Jahres). Die Farbe richtet sich auch bei „ü. NHN“ nach der Tiefe unter Gelände."
+ },
+ "header": "Vereinfachtes Höhenmodell von Tunnel, Hochbahn und Bahnhöfen – Höhenunterschiede ×50 vergrößert, Meterangaben unverändert",
+ "errors": []
+}
