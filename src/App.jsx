@@ -12,10 +12,16 @@ const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, 
   return r.json();
 });
 
+// Режим для скриншотов (слайдер на сайте-портфолио): ?clean — без подписей (станции и подложка),
+// ?clean=bare — ещё и без панелей; ?year=1961 — стартовый год
+const PARAMS = new URLSearchParams(window.location.search);
+const CLEAN = PARAMS.has('clean');
+const BARE = PARAMS.get('clean') === 'bare';
+
 export default function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [year, setYear] = useState(1902);
+  const [year, setYear] = useState(() => Number(PARAMS.get('year')) || 1902);
   const [playing, setPlaying] = useState(false);
   const [hiddenLines, setHiddenLines] = useState(() => new Set());
   const [basemap, setBasemap] = useState(BASEMAPS[0]);
@@ -33,7 +39,8 @@ export default function App() {
   const mapStyle = useMemo(() => {
     if (tiles === null) return null;
     if (!tiles && import.meta.env.DEV) return devFallbackStyle(basemap);
-    return basemapStyle(basemap);
+    const st = basemapStyle(basemap);
+    return CLEAN ? { ...st, layers: st.layers.filter((l) => l.type !== 'symbol') } : st;
   }, [tiles, basemap]);
 
   const stats = useMemo(() => {
@@ -76,11 +83,11 @@ export default function App() {
       </header>
       <main>
         {error && <div className="error">Daten konnten nicht geladen werden: {error}</div>}
-        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} />}
-        {data && (
+        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} showLabels={!CLEAN} bare={BARE} />}
+        {data && !BARE && (
           <Legend stats={stats} hiddenLines={hiddenLines} toggleLine={toggleLine} basemap={basemap} setBasemap={setBasemap} />
         )}
-        <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />
+        {!BARE && <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />}
       </main>
       <LegalDialog />
     </div>
