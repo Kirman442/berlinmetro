@@ -61,7 +61,7 @@ const labelLayer = {
 
 const labelPaintDark = { 'text-color': '#eee', 'text-halo-color': '#1b1b1b', 'text-halo-width': 1.4 };
 
-export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
+export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark, showLabels = true, bare = false }) {
   const [popup, setPopup] = useState(null);
   const [cursor, setCursor] = useState('');
 
@@ -136,8 +136,8 @@ export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
       cursor={cursor}
       style={{ position: 'absolute', inset: 0 }}
     >
-      <NavigationControl position="top-left" showCompass={false} />
-      <MapAttribution />
+      {!bare && <NavigationControl position="top-left" showCompass={false} />}
+      {!bare && <MapAttribution />}
       <Source id="sections" type="geojson" data={sections}>
         <Layer {...sectionHitLayer} />
         <Layer {...sectionLayer} />
@@ -146,7 +146,7 @@ export default function MetroMap({ data, iso, hiddenLines, mapStyle, dark }) {
         <Layer {...stationLayer} />
       </Source>
       <Source id="station-labels" type="geojson" data={labels}>
-        <Layer {...labelLayer} paint={dark ? labelPaintDark : labelLayer.paint} />
+        {showLabels && <Layer {...labelLayer} paint={dark ? labelPaintDark : labelLayer.paint} />}
       </Source>
       {popup && (
         <CrispPopup

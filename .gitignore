@@ -25,3 +25,8 @@ dist-ssr
 
 # pmtiles.exe для scripts/fetch_basemap.ps1
 .tools/
+
+# Kartengrundlagen der anderen Städte (nur für die 3D-App lokal, nicht im 2D-Deploy)
+public/tiles/hamburg.pmtiles
+public/tiles/muenchen.pmtiles
+public/tiles/nuernberg.pmtiles

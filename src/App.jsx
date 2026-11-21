@@ -12,10 +12,16 @@ const load = (name) => fetch(`${import.meta.env.BASE_URL}data/${name}.geojson`, 
   return r.json();
 });
 
+// Режим для скриншотов (слайдер на сайте-портфолио): ?clean — без подписей (станции и подложка),
+// ?clean=bare — ещё и без панелей; ?year=1961 — стартовый год
+const PARAMS = new URLSearchParams(window.location.search);
+const CLEAN = PARAMS.has('clean');
+const BARE = PARAMS.get('clean') === 'bare';
+
 export default function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [year, setYear] = useState(1902);
+  const [year, setYear] = useState(() => Number(PARAMS.get('year')) || 1902);
   const [playing, setPlaying] = useState(false);
   const [hiddenLines, setHiddenLines] = useState(() => new Set());
   const [basemap, setBasemap] = useState(BASEMAPS[0]);
@@ -33,7 +39,8 @@ export default function App() {
   const mapStyle = useMemo(() => {
     if (tiles === null) return null;
     if (!tiles && import.meta.env.DEV) return devFallbackStyle(basemap);
-    return basemapStyle(basemap);
+    const st = basemapStyle(basemap);
+    return CLEAN ? { ...st, layers: st.layers.filter((l) => l.type !== 'symbol') } : st;
   }, [tiles, basemap]);
 
   const stats = useMemo(() => {
@@ -42,16 +49,20 @@ export default function App() {
     const seen = new Set();
     const ghost = new Set();
     const noStop = new Set();
+    // Knoten: Wikidata-ID; Einträge ohne ID (z. B. zweite Ebene Nollendorfplatz) über den Namen zuordnen
+    const wdByName = {};
+    for (const f of data.stations.features) { const q = f.properties; if (q.wikidata) wdByName[q.name] = q.wikidata; }
+    const key = (q) => q.wikidata || wdByName[q.name] || q.name;
     for (const f of data.stations.features) {
       const p = f.properties;
       const st = stateAt(p, iso);
       if (st === 'interrupted') {
         const it = interruptionAt(p, iso);
-        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(p.wikidata || p.name);
+        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(key(p));
       }
       if (st !== 'open') continue;
       s.byLine[p.line] = (s.byLine[p.line] || 0) + 1;
-      seen.add(p.wikidata || p.name); // пересадочный узел считаем один раз
+      seen.add(key(p)); // пересадочный узел считаем один раз
     }
     s.stations = seen.size;
     s.ghost = ghost.size;
@@ -76,11 +87,11 @@ export default function App() {
       </header>
       <main>
         {error && <div className="error">Daten konnten nicht geladen werden: {error}</div>}
-        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} />}
-        {data && (
+        {data && mapStyle && <MetroMap data={data} iso={iso} hiddenLines={hiddenLines} mapStyle={mapStyle} dark={basemap.dark} showLabels={!CLEAN} bare={BARE} />}
+        {data && !BARE && (
           <Legend stats={stats} hiddenLines={hiddenLines} toggleLine={toggleLine} basemap={basemap} setBasemap={setBasemap} />
         )}
-        <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />
+        {!BARE && <TimeControl year={year} setYear={setYear} playing={playing} setPlaying={setPlaying} />}
       </main>
       <LegalDialog />
     </div>
