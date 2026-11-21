@@ -49,16 +49,20 @@ export default function App() {
     const seen = new Set();
     const ghost = new Set();
     const noStop = new Set();
+    // Knoten: Wikidata-ID; Einträge ohne ID (z. B. zweite Ebene Nollendorfplatz) über den Namen zuordnen
+    const wdByName = {};
+    for (const f of data.stations.features) { const q = f.properties; if (q.wikidata) wdByName[q.name] = q.wikidata; }
+    const key = (q) => q.wikidata || wdByName[q.name] || q.name;
     for (const f of data.stations.features) {
       const p = f.properties;
       const st = stateAt(p, iso);
       if (st === 'interrupted') {
         const it = interruptionAt(p, iso);
-        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(p.wikidata || p.name);
+        (it && it.type === 'geisterbahnhof' ? ghost : noStop).add(key(p));
       }
       if (st !== 'open') continue;
       s.byLine[p.line] = (s.byLine[p.line] || 0) + 1;
-      seen.add(p.wikidata || p.name); // пересадочный узел считаем один раз
+      seen.add(key(p)); // пересадочный узел считаем один раз
     }
     s.stations = seen.size;
     s.ghost = ghost.size;
